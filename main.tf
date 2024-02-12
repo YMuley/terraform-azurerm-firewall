@@ -2,7 +2,7 @@
 resource "azurerm_firewall" "azure_firewall" {
     for_each            = local.azure_firewall
         name                = each.value.name
-        resource_group_name = var.resource_group_output[each.value.resource_group_name].name
+        resource_group_name = each.value.resource_group_name
         location            = each.value.location == null ? var.default_values.location : each.value.location
         sku_name            = each.value.sku_name
         sku_tier            = each.value.sku_tier
