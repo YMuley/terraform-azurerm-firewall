@@ -15,9 +15,10 @@ resource "azurerm_firewall" "azure_firewall" {
   dynamic "ip_configuration" {
     for_each = each.value.ip_configuration
     content {
-      name               = ip_configuration.value.name
-      subnet_id          = var.subnet_output[format("%s/AzureFirewallSubnet", ip_configuration.value.virtual_network_name)].id
-     // private_ip_address = ip_configuration.value.private_ip_address
+      name      = ip_configuration.value.name
+      subnet_id = var.subnet_output[format("%s/AzureFirewallSubnet", ip_configuration.value.virtual_network_name)].id
+      //private_ip_address = ip_configuration.value.private_ip_address
+      public_ip_address_id = ip_configuration.value.public_ip_name == null ? null : var.public_ip_output[ip_configuration.value.public_ip_name].id
     }
 
   }
