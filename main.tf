@@ -31,6 +31,6 @@ resource "azurerm_firewall" "azure_firewall" {
         #     }            
         # }
         
-        # tags                = each.value.tags == null ? var.default_values.tags : each.value.tags
+         tags                = each.value.tags == null ? var.default_values.tags : each.value.tags
 
 }
