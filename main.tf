@@ -6,7 +6,6 @@ resource "azurerm_firewall" "azure_firewall" {
   location            = each.value.location == null ? var.default_values.location : each.value.location
   sku_name            = each.value.sku_name
   sku_tier            = each.value.sku_tier
-  // firewall_policy_id  = each.value.firewall_policy_name == null ? null : var.azure_firewall_policy_output[each.value.firewall_policy_name].id
   dns_servers       = length(each.value.dns_servers) == 0 ? null : each.value.dns_servers
   private_ip_ranges = length(each.value.private_ip_ranges) == 0 ? null : each.value.private_ip_ranges
   zones             = length(each.value.zones) == 0 ? null : each.value.zones
@@ -17,20 +16,10 @@ resource "azurerm_firewall" "azure_firewall" {
     content {
       name      = ip_configuration.value.name
       subnet_id = var.subnet_output[format("%s/AzureFirewallSubnet", ip_configuration.value.virtual_network_name)].id
-      //private_ip_address = ip_configuration.value.private_ip_address
       public_ip_address_id = ip_configuration.value.public_ip_name == null ? null : var.public_ip_output[ip_configuration.value.public_ip_name].id
     }
 
   }
-
-  # dynamic "management_ip_configuration" {
-  #     for_each = each.value.management_ip_configuration
-  #     content{
-  #         name  = management_ip_configuration.value.name
-  #         subnet_id  = var.subnet_output[format("%s/AzureFirewallManagementSubnet",management_ip_configuration.value.virtual_network_name)].id  
-  #         public_ip_address_id  = var.public_ip_output[management_ip_configuration.value.public_ip_name].id
-  #     }            
-  # }
 
   tags = each.value.tags == null ? var.default_values.tags : each.value.tags
 
