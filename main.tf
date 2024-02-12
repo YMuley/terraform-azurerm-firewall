@@ -17,7 +17,7 @@ resource "azurerm_firewall" "azure_firewall" {
     content {
       name               = ip_configuration.value.name
       subnet_id          = var.subnet_output[format("%s/AzureFirewallSubnet", ip_configuration.value.virtual_network_name)].id
-      private_ip_address = ip_configuration.value.private_ip_address
+     // private_ip_address = ip_configuration.value.private_ip_address
     }
 
   }
