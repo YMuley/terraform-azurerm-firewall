@@ -7,7 +7,7 @@ resource "azurerm_firewall" "azure_firewall" {
   sku_name            = each.value.sku_name
   sku_tier            = each.value.sku_tier
   firewall_policy_id  = each.value.firewall_policy_name == null ? null : var.azure_firewall_policy_output[each.value.firewall_policy_name].id
-  dns_servers         = length(each.value.dns_servers) == 0 ? null : each.value.dns_servers
+  //dns_servers         = length(each.value.dns_servers) == 0 ? null : each.value.dns_servers
   private_ip_ranges   = length(each.value.private_ip_ranges) == 0 ? null : each.value.private_ip_ranges
   zones               = length(each.value.zones) == 0 ? null : each.value.zones
   threat_intel_mode   = each.value.threat_intel_mode == null ? "Alert" : each.value.threat_intel_mode
