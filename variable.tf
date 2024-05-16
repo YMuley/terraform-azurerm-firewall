@@ -22,11 +22,11 @@ variable "public_ip_output" {
   description = "list of public ip objects "
 }
 
-# variable "azure_firewall_policy_output" {
-#   type        = map(any)
-#   default     = {}
-#   description = "list of firewall objects "
-# }
+variable "azure_firewall_policy_output" {
+  type        = map(any)
+  default     = {}
+  description = "list of firewall objects "
+}
 
 variable "default_values" {
   type = any

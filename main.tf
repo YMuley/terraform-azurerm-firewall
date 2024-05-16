@@ -2,10 +2,11 @@
 resource "azurerm_firewall" "azure_firewall" {
   for_each            = local.azure_firewall
   name                = each.value.name
-  resource_group_name = each.value.resource_group_name
+  resource_group_name = var.resource_group_output[each.value.resource_group_name].name
   location            = each.value.location == null ? var.default_values.location : each.value.location
   sku_name            = each.value.sku_name
   sku_tier            = each.value.sku_tier
+  firewall_policy_id  = each.value.firewall_policy_name == null ? null : var.azure_firewall_policy_output[each.value.firewall_policy_name].id
   dns_servers         = length(each.value.dns_servers) == 0 ? null : each.value.dns_servers
   private_ip_ranges   = length(each.value.private_ip_ranges) == 0 ? null : each.value.private_ip_ranges
   zones               = length(each.value.zones) == 0 ? null : each.value.zones
